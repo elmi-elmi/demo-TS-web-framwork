@@ -1,4 +1,21 @@
 {
+  "name": "13-web",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elmi-elmi/demo-TS-web-framwork.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elmi-elmi/demo-TS-web-framwork/issues"
+  },
+  "homepage": "https://github.com/elmi-elmi/demo-TS-web-framwork#readme",
   "devDependencies": {
     "parcel": "^2.3.2"
   }
