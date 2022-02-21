@@ -3,11 +3,15 @@ console.log('-----------index.ts run----------------')
 import {User} from "./modules/User";
 
 const user = new User({id:5});
-user.fetch()
 
-setTimeout(()=>{
-    console.log(user.get('name'))
-},1000)
+user.events.on('save', ()=>console.log('save trigger'))
+
+user.events.trigger('save')
+// user.fetch()
+//
+// setTimeout(()=>{
+//     console.log(user.get('name'))
+// },1000)
 // const user = new User({name:'shahram',age:30,id:5});
 //
 // user.save();
