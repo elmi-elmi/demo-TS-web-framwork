@@ -1,38 +1,61 @@
+import axios, { AxiosResponse } from "axios";
+
 interface UserProps {
-    name?: string;
-    age?: number;
+  id?: number;
+  name?: string;
+  age?: number;
 }
 
-type Callback = ()=>void;
+type Callback = () => void;
+
 export class User {
+  events: { [key: string]: Callback[] } = {};
 
-    events:{[key:string]:Callback[]} = {};
+  constructor(private data: UserProps) {}
 
-    constructor(private data: UserProps) {
+  get(propName:string): string | number | undefined {
+    return this.data[propName as keyof UserProps];
+  }
+
+  set(update: UserProps): void {
+    // this.data = update
+    Object.assign(this.data, update);
+  }
+
+  on(eventName: string, callback: Callback): void {
+    const handler = this.events[eventName] || [];
+    handler.push(callback);
+    this.events[eventName] = handler;
+  }
+
+  trigger(eventName: string): void {
+    const handlers = this.events[eventName];
+
+    if (!handlers || handlers.length === 0) return;
+
+    handlers.forEach((callback) => callback());
+  }
+
+  fetch(): void {
+    const id = this.get('id');
+    console.log(id)
+    axios
+      .get(`http://localhost:3000/users/${id}`)
+      .then((response: AxiosResponse): void => {
+        this.set(response.data);
+      });
+
+    //
+    // axios.get(`http://localhost:3000/users/${this.}`)
+  }
+
+  save(): void {
+    const id = this.data["id"];
+
+    if (!id) {
+      axios.post(`http://localhost:3000/users`, this.data);
+    } else {
+      axios.put(`http://localhost:3000/users/${id}`, this.data);
     }
-    get(propName:string): string|number|undefined{
-        return this.data[propName as keyof UserProps ]
-    }
-
-    set(update:UserProps):void{
-        // this.data = update
-        Object.assign(this.data, update);
-    }
-
-    on(eventName:string, callback:Callback):void{
-        const handler = this.events[eventName] || [];
-        handler.push(callback);
-        this.events[eventName] = handler;
-    }
-
-
-    trigger(eventName:string):void{
-        const handlers = this.events[eventName];
-
-        if(!handlers|| (handlers.length === 0)) return;
-
-
-        handlers.forEach(callback=>callback())
-    }
+  }
 }
-

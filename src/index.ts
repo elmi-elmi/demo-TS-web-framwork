@@ -1,18 +1,32 @@
 console.log('-----------index.ts run----------------')
-import axios from "axios";
+// import axios from "axios";
+import {User} from "./modules/User";
 
+const user = new User({id:5});
+user.fetch()
 
+setTimeout(()=>{
+    console.log(user.get('name'))
+},1000)
+// const user = new User({name:'shahram',age:30,id:5});
+//
+// user.save();
 
+//
 // axios.post("http://localhost:3000/users",{
 //     name:"shahrokh",
 //     age:"28"
 // })
 
-axios.get("http://localhost:3000/users/1")
+
+
+// axios.get("http://localhost:3000/users/1")
 
 
 //
 // import{User} from './modules/User';
+
+
 //
 // const user = new User({name:'shahrokh',age:20});
 //
