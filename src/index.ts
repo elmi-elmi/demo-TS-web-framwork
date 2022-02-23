@@ -1,12 +1,18 @@
-console.log('-----------index.ts run----------------')
+console.log('-----------index.ts run----------------');
 // import axios from "axios";
 import {User} from "./modules/User";
 
-const user = new User({id:5});
+const user = new User({id:5,name:'NEWER NAME',age:22222});
 
-user.events.on('save', ()=>console.log('save trigger'))
+user.on('save', ()=>console.log('save trigger'));
+user.on('change', ()=>console.log('change trigger'));
 
-user.events.trigger('save')
+// user.events.trigger('save')
+user.get('name');
+user.set({name: 'newer name'});
+user.get('name');
+// user.trigger('save');
+// user.fetch()
 // user.fetch()
 //
 // setTimeout(()=>{
