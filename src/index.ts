@@ -3,9 +3,9 @@ console.log('-----------index.ts run----------------');
 import {User, UserProps} from "./modules/User";
 // ================
 import {Collection} from "./modules/Collection";
-
-const coll = new Collection<User, UserProps>('http://localhost:3000/users',
-    (json:UserProps)=>User.buildUser(json));
+const coll = User.buildCollection()
+// const coll = new Collection<User, UserProps>('http://localhost:3000/users',
+//     (json:UserProps)=>User.buildUser(json));
 
 coll.on('change',()=>{console.log(coll.models)})
 
