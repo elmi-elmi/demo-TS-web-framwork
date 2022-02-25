@@ -35,10 +35,9 @@ export class Model<T extends HasId> {
     }
 
     on = this.events.on;
-
     trigger = this.events.trigger;
-
     get = this.attributes.get;
+
     // get on() {
     //     return this.events.on;
     // }

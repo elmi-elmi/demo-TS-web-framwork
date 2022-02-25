@@ -1,14 +1,22 @@
 console.log('-----------index.ts run----------------');
 // import axios from "axios";
-import {User} from "./modules/User";
+import {User, UserProps} from "./modules/User";
+// ================
+import {Collection} from "./modules/Collection";
 
-const user = User.buildUser({id:1})
-user.fetch()
+const coll = new Collection<User, UserProps>('http://localhost:3000/users',
+    (json:UserProps)=>User.buildUser(json));
 
-setTimeout(()=>{
-    user.get('name')
-},2000)
+coll.on('change',()=>{console.log(coll.models)})
 
+coll.fetch()
+
+// const user = User.buildUser({id:1})
+// user.fetch()
+//
+// setTimeout(()=>{
+//     user.get('name')
+// },2000)
 
 
 
