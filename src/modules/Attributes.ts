@@ -1,9 +1,10 @@
 export class Attributes<T> {
-    constructor(private data: T) {
+    constructor(public data: T) {
     }
 
     get = <K extends keyof T>(key: K): T[K] =>{
-        console.log(this.data[key])
+        console.log('attributes',this.data[key],key,this.data)
+        console.log(key)
         return this.data[key];
         // return this.data[propName as keyof UserProps];
     }
