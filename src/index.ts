@@ -1,15 +1,42 @@
 console.log('-----------index.ts run----------------');
+console.log('-----------index.ts run----------------');
+
+import {UserForm} from "./views/UserForm";
+// @ts-ignore
+const root:Element = document.getElementById('root');
+
+
+
+const userForm = new UserForm(root);
+
+userForm.render()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // import axios from "axios";
-import {User, UserProps} from "./modules/User";
+// import {User, UserProps} from "./modules/User";
 // ================
-import {Collection} from "./modules/Collection";
-const coll = User.buildCollection()
+// import {Collection} from "./modules/Collection";
+// const coll = User.buildUserCollection()
 // const coll = new Collection<User, UserProps>('http://localhost:3000/users',
 //     (json:UserProps)=>User.buildUser(json));
 
-coll.on('change',()=>{console.log(coll.models)})
-
-coll.fetch()
+// coll.on('change',()=>{console.log(coll.models)})
+//
+// coll.fetch()
 
 // const user = User.buildUser({id:1})
 // user.fetch()

@@ -16,16 +16,18 @@ export interface UserProps {
 const rootUrl: string = "http://localhost:3000/users";
 
 export class User extends Model<UserProps> {
-    static buildUser(attrs: UserProps): User{
+    static buildUser(attrs: UserProps): User {
         return new User(
             new Attributes<UserProps>(attrs),
             new Eventing(),
             new Sync<UserProps>(rootUrl)
         );
-    };
+    }
 
-    static buildCollection():Collection<User, UserProps>{
-        return new Collection<User, UserProps>(rootUrl,(json:UserProps)=>User.buildUser(json))
+    static buildUserCollection(): Collection<User, UserProps> {
+        return new Collection<User, UserProps>(rootUrl, (json: UserProps) =>
+            User.buildUser(json)
+        );
     }
 }
 
