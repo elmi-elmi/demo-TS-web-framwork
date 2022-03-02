@@ -75,4 +75,5 @@ export class Model<T extends HasId> {
             this.trigger("save");
         });
     }
+
 }

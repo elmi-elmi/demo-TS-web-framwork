@@ -1,22 +1,37 @@
+import {User} from "../modules/User";
 export class UserForm {
-    constructor(public parent: Element) {
+    constructor(public parent: Element, public model:User) {
+        this.bindModel();
+    }
 
+    bindModel(){
+        this.model.on('change',()=>{
+            this.render();
+        })
     }
 
     mapEvents(): { [key: string]: () => void } {
         return {
-            'click:button': this.onButtonClick,
-            'mouseover:h1':this.hoverHeader
+            'click:.set-name': this.setNameClick,
+            'click:.set-age': this.setAgeClick,
         }
     }
 
-    hoverHeader():void{
-        console.log('div hover.....')
+    setNameClick = ():void=>{
+        const input = document.querySelector('input');
+        if(input){
+        const name = input.value;
+
+        this.model.set({name})
+        this.model.trigger('change');
+        }else{
+            throw new Error('input element not found');
+        }
+    }
+    setAgeClick = ():void=>{
+        this.model.setRandomAge()
     }
 
-    onButtonClick(): void {
-        console.log('Button clicked.......')
-    }
 
     bindEvents(fragment: DocumentFragment): void {
         const eventsMap = this.mapEvents();
@@ -33,16 +48,21 @@ export class UserForm {
     template(): string {
         return `
         <div>
+        <p>hi</p>
             <h1>
                 User Form
             </h1>
+            <div ><h2>User Name: ${this.model.get('name')}</h2> </div>
+            <div ><h2>User Age: ${this.model.get('age')}</h2></div>
             <input type="text"/>
-            <button>click me</button>
+            <button class="set-name">Change Name</button>
+            <button class="set-age">Set Random Age</button>
         </div>
         `;
     }
 
     render(): void {
+        this.parent.innerHTML = '';
         const template = document.createElement('template');
         template.innerHTML = this.template();
 

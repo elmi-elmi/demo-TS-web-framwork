@@ -29,6 +29,12 @@ export class User extends Model<UserProps> {
             User.buildUser(json)
         );
     }
+
+
+    setRandomAge():void{
+        const age:number = Math.trunc(Math.random()*100)
+        this.set({age})
+    }
 }
 
 // import axios, {AxiosResponse} from "axios";

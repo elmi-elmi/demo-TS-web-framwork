@@ -3,8 +3,6 @@ export class Attributes<T> {
     }
 
     get = <K extends keyof T>(key: K): T[K] =>{
-        console.log('attributes',this.data[key],key,this.data)
-        console.log(key)
         return this.data[key];
         // return this.data[propName as keyof UserProps];
     }
