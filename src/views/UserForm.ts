@@ -76,20 +76,19 @@ export class UserForm {
         // this.parent.append(template.content);
         // this.updateView()
         console.log('****render*******')
-        const template = this.markupView();
+        const template:HTMLTemplateElement = this.markupView();
         this.bindEvents(template.content);
         this.parent.append(template.content);
     }
 
-    markupView(): Element {
+    markupView(): HTMLTemplateElement {
         const template = document.createElement("template");
         template.innerHTML = this.template();
-
         return template;
     }
 
     updateView() {
-        console.log('*******upadte view')
+        console.log('*******update view')
         const newDom = document
             .createRange()
             .createContextualFragment(this.markupView().innerHTML.trim());
@@ -101,8 +100,8 @@ export class UserForm {
         newNodeList.forEach((el, i) => {
 
             const currEl = currNodeList[i];
-            if (el.firstChild?.nodeValue?.trim()   && !el.isEqualNode(currEl)) {
-                currEl.firstChild.textContent = el.firstChild.textContent
+            if (el.firstChild?.nodeValue?.trim()   && !el.isEqualNode(currEl) && currEl.firstChild) {
+                currEl.firstChild.textContent = el.firstChild.textContent;
                 console.log(currEl);
             }
         });
