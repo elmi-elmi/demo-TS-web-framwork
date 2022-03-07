@@ -3,56 +3,18 @@ console.log('-----------index.ts run----------------');
 import {UserForm} from "./views/UserForm";
 import {User} from "./modules/User";
 
-const user = User.buildUser({name:'sss',age:2222})
+
+const user = User.buildUser({name: 'sss', age: 2222})
 const root = document.getElementById('root');
 
-if(root){
+if (root) {
     const userForm = new UserForm(root, user);
+    userForm.render();
+    // userForm.sayHello()
 
-}else{
+} else {
     throw new Error('root not found')
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import axios from "axios";
-// import {User, UserProps} from "./modules/User";
-// ================
-// import {Collection} from "./modules/Collection";
-// const coll = User.buildUserCollection()
-// const coll = new Collection<User, UserProps>('http://localhost:3000/users',
-//     (json:UserProps)=>User.buildUser(json));
-
-// coll.on('change',()=>{console.log(coll.models)})
-//
-// coll.fetch()
-
-// const user = User.buildUser({id:1})
-// user.fetch()
-//
-// setTimeout(()=>{
-//     user.get('name')
-// },2000)
-
-
-
-
-
 
 
 // =========================== old code ========================================
@@ -81,7 +43,6 @@ if(root){
 //     name:"shahrokh",
 //     age:"28"
 // })
-
 
 
 // axios.get("http://localhost:3000/users/1")

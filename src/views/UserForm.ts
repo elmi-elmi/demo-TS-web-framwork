@@ -1,29 +1,27 @@
 import {User} from "../modules/User";
+import {View} from "./View";
 
-export class UserForm {
-    constructor(public parent: Element, public model: User) {
-        this.render();
-        this.bindModel();
+export class UserForm extends View{
+
+    constructor( parent:Element,  model:User) {
+        super(parent, model);
+        // console.log('user form ', this.model)
+
     }
 
-    bindModel() {
-        console.log('*************')
-        this.model.on("change", () => {
-            // this.updateView();
-            this.render();
-        });
-    }
-
-    mapEvents(): { [key: string]: () => void } {
+    mapEvents (): { [key: string]: () => void }{
         return {
             "click:.set-name": this.setNameClick,
             "click:.set-age": this.setAgeClick,
+            "click:.save": this.setSaveClick,
         };
     }
 
-    setNameClick = (): void => {
-        console.log('**********2')
+    setSaveClick = ():void=>{
+            this.model.save();
+        }
 
+    setNameClick = (): void => {
         const input = document.querySelector("input");
         if (input) {
             const name = input.value;
@@ -34,23 +32,10 @@ export class UserForm {
         }
     };
     setAgeClick = (): void => {
-        console.log('**********1')
         this.model.setRandomAge();
     };
 
-    bindEvents(fragment: DocumentFragment): void {
-        console.log('**********3')
 
-        console.log();
-        const eventsMap = this.mapEvents();
-
-        for (let eventKey in eventsMap) {
-            const [eventName, selector] = eventKey.split(":");
-            fragment.querySelectorAll(selector).forEach((element) => {
-                element.addEventListener(eventName, eventsMap[eventKey]);
-            });
-        }
-    }
 
     template(): string {
         return `
@@ -63,23 +48,25 @@ export class UserForm {
             <input type="text"/>
             <button class="set-name">Change Name</button>
             <button class="set-age">Set Random Age</button>
+            <button class="save" >Save</button>
         </div>
         `;
     }
 
-    render(): void {
-        this.parent.innerHTML = '';
-        const template = document.createElement('template');
-        template.innerHTML = this.template();
 
-        this.bindEvents(template.content)
-        this.parent.append(template.content);
-
-        // console.log('****render*******')
-        // const template:HTMLTemplateElement = this.markupView();
-        // this.bindEvents(template.content);
-        // this.parent.append(template.content);
-    }
+    // render(): void {
+    //     this.parent.innerHTML = '';
+    //     const template = document.createElement('template');
+    //     template.innerHTML = this.template();
+    //
+    //     this.bindEvents(template.content)
+    //     this.parent.append(template.content);
+    //
+    //     // console.log('****render*******')
+    //     // const template:HTMLTemplateElement = this.markupView();
+    //     // this.bindEvents(template.content);
+    //     // this.parent.append(template.content);
+    // }
 
     // markupView(): HTMLTemplateElement {
     //     const template = document.createElement("template");
