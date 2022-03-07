@@ -2,16 +2,15 @@ console.log('-----------index.ts run----------------');
 
 import {UserForm} from "./views/UserForm";
 import {User} from "./modules/User";
-
+import {UserEdit} from "./views/UserEdit";
 
 const user = User.buildUser({name: 'sss', age: 2222})
 const root = document.getElementById('root');
 
 if (root) {
-    const userForm = new UserForm(root, user);
-    userForm.render();
-    // userForm.sayHello()
-
+    const userEdit = new UserEdit(root, user);
+    userEdit.render();
+    console.log(userEdit)
 } else {
     throw new Error('root not found')
 }

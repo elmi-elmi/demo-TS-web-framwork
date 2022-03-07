@@ -6,11 +6,6 @@ export class UserShow extends View{
         super(parent, model)
     }
 
-    mapEvents (): { [key: string]: () => void }{
-        return {
-
-        };
-    }
 
     template():string{
         return `

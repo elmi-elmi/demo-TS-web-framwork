@@ -9,7 +9,7 @@ export class UserForm extends View{
 
     }
 
-    mapEvents (): { [key: string]: () => void }{
+    mapEvents = (): { [key: string]: () => void }=>{
         return {
             "click:.set-name": this.setNameClick,
             "click:.set-age": this.setAgeClick,
