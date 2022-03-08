@@ -1,10 +1,10 @@
 import {User} from "../modules/User";
 import {View} from "./View";
 
-export class UserShow extends View{
-    constructor( parent:Element,  model:User) {
-        super(parent, model)
-    }
+export class UserShow extends View<User>{
+    // constructor( parent:Element,  model:User) {
+    //     super(parent, model)
+    // }
 
 
     template():string{

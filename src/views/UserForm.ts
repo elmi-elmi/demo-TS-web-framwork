@@ -1,13 +1,11 @@
 import {User} from "../modules/User";
 import {View} from "./View";
 
-export class UserForm extends View{
-
-    constructor( parent:Element,  model:User) {
-        super(parent, model);
-        // console.log('user form ', this.model)
-
-    }
+export class UserForm extends View<User>{
+    // constructor( parent:Element,  model:User) {
+    //     super(parent, model);
+    //
+    // }
 
     mapEvents = (): { [key: string]: () => void }=>{
         return {
@@ -35,17 +33,13 @@ export class UserForm extends View{
         this.model.setRandomAge();
     };
 
-
-
     template(): string {
         return `
         <div>
             <h1>
                 User Form
             </h1>
-            <div ><h2>User Name: ${this.model.get("name")}</h2> </div>
-            <div ><h2>User Age: ${this.model.get("age")}</h2></div>
-            <input type="text"/>
+            <input type="text" placeholder="${this.model.get('name')}"/>
             <button class="set-name">Change Name</button>
             <button class="set-age">Set Random Age</button>
             <button class="save" >Save</button>
