@@ -5,19 +5,37 @@ interface ModelForView {
 }
 
 export abstract class View<T extends ModelForView> {
-     constructor(public parent: Element, public model: T) {
-         this.bindModel();
-
+    constructor(public parent: Element, public model: T) {
+        this.bindModel();
     }
 
     abstract template(): string;
 
-    // regions():{[key:string]:string}{return {}}
+
+    regions: { [key: string]: Element } = {}
+
+    regionsMap(): { [key: string]: string } {
+        return {}
+    }
+
+    mapRegions(fragment: DocumentFragment): void {
+        const regions = this.regionsMap();
+
+        for (let key in regions) {
+            const selector= regions[key]
+            const reg = fragment.querySelector(selector);
+            if (reg) {
+                this.regions[key] = reg;
+            }
+        }
+    }
+
     mapEvents = (): { [key: string]: () => void } => {
         return {};
     };
 
     bindModel = () => {
+
 
         this.model.on("change", () => {
             console.log("change and rerender");
@@ -37,8 +55,11 @@ export abstract class View<T extends ModelForView> {
         template.innerHTML = this.template();
 
         this.bindEvents(template.content);
-        this.parent.append(template.content);
+        console.log('render')
+        console.log(template.content.querySelector('.show-user'))
+        this.mapRegions(template.content)
         this.onRender();
+        this.parent.append(template.content);
     };
 
     bindEvents = (fragment: DocumentFragment): void => {
