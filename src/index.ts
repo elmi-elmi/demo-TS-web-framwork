@@ -1,19 +1,26 @@
 console.log('-----------index.ts run----------------');
 
 import {UserForm} from "./views/UserForm";
-import {User} from "./modules/User";
+import {User, UserProps} from "./modules/User";
 import {UserEdit} from "./views/UserEdit";
+import {Collection} from "./modules/Collection";
 
-const user = User.buildUser({name: 'sss', age: 2222})
-const root = document.getElementById('root');
 
-if (root) {
-    const userEdit = new UserEdit(root, user);
-    userEdit.render();
-    console.log(userEdit)
-} else {
-    throw new Error('root not found')
-}
+const rootUrl = "http://localhost:3000/users";
+
+const collection = new Collection<User,UserProps>(rootUrl,(json:UserProps)=>{return User.buildUser(json)})
+collection.fetch()
+console.log(collection.models)
+// const user = User.buildUser({name: 'sss', age: 2222})
+// const root = document.getElementById('root');
+//
+// if (root) {
+//     const userEdit = new UserEdit(root, user);
+//     userEdit.render();
+//     console.log(userEdit)
+// } else {
+//     throw new Error('root not found')
+// }
 
 
 // =========================== old code ========================================
