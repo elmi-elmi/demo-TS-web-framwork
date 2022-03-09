@@ -5,32 +5,36 @@ console.log('-----------index.ts run----------------');
 import {User, UserProps} from "./modules/User";
 import {UserEdit} from "./views/UserEdit";
 import {Collection} from "./modules/Collection";
+// ============== User ==============
+
+const user = User.buildUser({name: 'sss', age: 2222})
+const rootUser = document.getElementById('root-user');
+
+if (rootUser) {
+    const userEdit = new UserEdit(rootUser, user);
+    userEdit.render();
+    console.log(userEdit)
+} else {
+    throw new Error('root not found')
+}
 
 // ============== Collection ==============
-const rootUrl = "http://localhost:3000/users";
-const root = document.getElementById('root');
-const collection = new Collection<User,UserProps>(rootUrl,(json:UserProps)=>{return User.buildUser(json)})
+const rootColl = document.getElementById('root-collection');
 
-if(root){
+const rootUrl = "http://localhost:3000/users";
+const collection = new Collection<User,UserProps>(rootUrl,(json:UserProps)=>{return User.buildUser(json)})
+console.log(rootColl)
+
+if(rootColl){
+    console.log(rootColl)
     collection.on('change',()=>{
-        new UserList(root,collection)
+        new UserList(rootColl,collection)
     })
 }
 
 collection.fetch()
 
-// ============== User ==============
 
-// const user = User.buildUser({name: 'sss', age: 2222})
-// const root = document.getElementById('root');
-//
-// if (root) {
-//     const userEdit = new UserEdit(root, user);
-//     userEdit.render();
-//     console.log(userEdit)
-// } else {
-//     throw new Error('root not found')
-// }
 
 
 
