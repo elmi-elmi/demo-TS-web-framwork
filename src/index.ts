@@ -1,16 +1,26 @@
+import {UserList} from "./views/UserList";
+
 console.log('-----------index.ts run----------------');
 
-import {UserForm} from "./views/UserForm";
 import {User, UserProps} from "./modules/User";
 import {UserEdit} from "./views/UserEdit";
 import {Collection} from "./modules/Collection";
 
-
+// ============== Collection ==============
 const rootUrl = "http://localhost:3000/users";
-
+const root = document.getElementById('root');
 const collection = new Collection<User,UserProps>(rootUrl,(json:UserProps)=>{return User.buildUser(json)})
+
+if(root){
+    collection.on('change',()=>{
+        new UserList(root,collection)
+    })
+}
+
 collection.fetch()
-console.log(collection.models)
+
+// ============== User ==============
+
 // const user = User.buildUser({name: 'sss', age: 2222})
 // const root = document.getElementById('root');
 //
@@ -21,6 +31,11 @@ console.log(collection.models)
 // } else {
 //     throw new Error('root not found')
 // }
+
+
+
+
+
 
 
 // =========================== old code ========================================

@@ -55,8 +55,6 @@ export abstract class View<T extends ModelForView> {
         template.innerHTML = this.template();
 
         this.bindEvents(template.content);
-        console.log('render')
-        console.log(template.content.querySelector('.show-user'))
         this.mapRegions(template.content)
         this.onRender();
         this.parent.append(template.content);
